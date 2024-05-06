@@ -8,6 +8,7 @@ namespace TP3POO_DOMINGUEZ_MINUCHIN
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            Console.Write(",");
         }
     }
 }
