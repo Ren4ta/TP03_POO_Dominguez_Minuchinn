@@ -2,26 +2,62 @@ static class Tiquetera
 {
     private static int UltimoIDEntrada = 0; 
     static int id = 0; 
+    
     private static Dictionary<int, cliente> DicClientes = new Dictionary<int,cliente>();
-    /*public static int DevolverUltimoID() 
-    {
-        return; 
-    } */
+    public static int DevolverUltimoID() 
+    {   
+
+        return UltimoIDEntrada++; 
+    } 
     public static int AgregarCliente(int dni, string apellido, string nombre, DateTime fechaInscripcion, int tipoEntrada, int cantidad) 
     {
         cliente Cliente = new cliente(dni, tipoEntrada, cantidad, apellido, nombre, fechaInscripcion);
-        id++;  
+        id = DevolverUltimoID();  
         DicClientes.Add(id,Cliente); 
         return id;
     }
-   /* public static cliente BuscarCliente(int Id)
+    public static void BuscarCliente(int Id)
     {
-
+        if (DicClientes[id] != null) 
+        {
+           Console.WriteLine(DicClientes[id].Apellido);  
+            Console.WriteLine (DicClientes[id].Nombre); 
+            Console.WriteLine(DicClientes[id].TipoEntrada); 
+           Console.WriteLine(DicClientes[id].FechaInscripcion.ToShortDateString()); 
+           Console.WriteLine(DicClientes[id].Cantidad); 
+           Console.WriteLine( DicClientes[id].DNI); 
+            
+        } 
+        else {
+            Console.WriteLine("No se encontró el id"); 
+        }
     }
-    public static int CambiarEntrada(int Id, int Tipo, int Cantidad)
+    public static void CambiarEntrada(int Id, int Tipo, int Cantidad)
     {
+        double nuevoImporte=0; 
+        
+        if(DicClientes[Id]!= null)
+        {
+            nuevoImporte = DicClientes[id].ObtenerImporte(Cantidad,Tipo);
+            double viejoImporte= DicClientes[id].ObtenerImporte(DicClientes[id].Cantidad,DicClientes[id].TipoEntrada);
+            if (nuevoImporte > viejoImporte )
+            {
+                DicClientes[id].TipoEntrada = Tipo;
+                DicClientes[id].Cantidad = Cantidad; 
+                Console.WriteLine("Se pudo hacer el cambio.El nuevo importe a cambiar es: $"+ (nuevoImporte-viejoImporte));
+                
+            } 
+            else 
+            {
+                Console.WriteLine("No se pudo cambiar los datos");
+            }
 
-    }*/
+        }  
+         else {
+            Console.WriteLine("No se encontró el id"); 
+        }
+        
+    }
     public static List<string> EstadisticasTicketera()
     {
         List<string> estadisticas = new List<string>(); 
@@ -40,38 +76,39 @@ static class Tiquetera
                 if (DicClientes[valor].TipoEntrada == 1)
                 {
                     cantT1+= DicClientes[valor].Cantidad;
-                    recaudacionT1 += DicClientes[valor].ObtenerImporte();
+                    recaudacionT1 += DicClientes[valor].ObtenerImporte(DicClientes[valor].Cantidad, DicClientes[valor].TipoEntrada);
                     clientesT1++;
 
                 }
                 else if (DicClientes[valor].TipoEntrada == 2)
                 {
                     cantT2+= DicClientes[valor].Cantidad;
-                    recaudacionT2 += DicClientes[valor].ObtenerImporte();
+                    recaudacionT2 += DicClientes[valor].ObtenerImporte(DicClientes[valor].Cantidad, DicClientes[valor].TipoEntrada);
                     clientesT2++;
 
-                }if (DicClientes[valor].TipoEntrada == 3)
+                }
+                else if (DicClientes[valor].TipoEntrada == 3)
                 {
                     cantT3+= DicClientes[valor].Cantidad;
-                    recaudacionT3 += DicClientes[valor].ObtenerImporte();
+                    recaudacionT3 += DicClientes[valor].ObtenerImporte(DicClientes[valor].Cantidad, DicClientes[valor].TipoEntrada);
                     clientesT3++;
 
                 }
                 else 
                 {
                     cantT4+= DicClientes[valor].Cantidad;
-                    recaudacionT4 += DicClientes[valor].ObtenerImporte();
+                    recaudacionT4 += DicClientes[valor].ObtenerImporte(DicClientes[valor].Cantidad, DicClientes[valor].TipoEntrada);
                     clientesT4++;
 
                 }
-                recaudacionTotal+= DicClientes[valor].ObtenerImporte();
+                recaudacionTotal+= DicClientes[valor].ObtenerImporte(DicClientes[valor].Cantidad, DicClientes[valor].TipoEntrada);
                 
             }
             int cantTotal = cantT1 + cantT2 + cantT3 + cantT4;
-            double porcentajeT1 =  (cantT1/cantTotal)*100;
-            double porcentajeT2 =  (cantT2/cantTotal)*100;
-            double porcentajeT3 =  (cantT3/cantTotal)*100;
-            double porcentajeT4 =  (cantT4/cantTotal)*100;
+            double porcentajeT1 =  (cantT1*100/cantTotal);
+            double porcentajeT2 =   (cantT2*100/cantTotal);
+            double porcentajeT3 =  (cantT3*100/cantTotal);
+            double porcentajeT4 =  (cantT4*100/cantTotal);
 
             estadisticas.Add("La cantidad de clientes que compraron Opcion 1 es: "+clientesT1);
             estadisticas.Add("La cantidad de clientes que compraron Opcion 2 es: "+clientesT2);

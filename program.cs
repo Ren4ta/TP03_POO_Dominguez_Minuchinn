@@ -30,10 +30,18 @@ namespace TP3POO_DOMINGUEZ_MINUCHIN
                 } 
                 break;
 
-                case 3:
+                case 3: 
+                Console.WriteLine("Ingrese el id a buscar"); 
+                int id = int.Parse(Console.ReadLine());  
+                Tiquetera.BuscarCliente(id); 
                 break;
 
                 case 4:
+                Console.WriteLine("Ingrese el id para cambiar la entrada"); 
+                int idCambio = int.Parse(Console.ReadLine());
+                int tipoNuevo= IngresarEntero("Ingrese el tipo de entrada: ", 1, 4);  
+                int cantNueva = IngresarEntero("Ingrese la cantidad de entradas: ", 0, 6);
+                Tiquetera.CambiarEntrada(idCambio,tipoNuevo,cantNueva);  
                 break;
 
 
@@ -56,7 +64,8 @@ namespace TP3POO_DOMINGUEZ_MINUCHIN
 
             return opc;
            
-        } 
+        }  
+        
         static int IngresarEntero(string txt, int tope1, int tope2) 
         { 
             int num;  

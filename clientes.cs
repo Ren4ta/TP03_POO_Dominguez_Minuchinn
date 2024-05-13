@@ -18,7 +18,7 @@ class cliente
         Nombre = nombre;
         FechaInscripcion = fechainscripcion;
     }
-    public double ObtenerImporte ()
+    public double ObtenerImporte (int cantidad,int TipoEntrada)
     {
         double importe;
         if(TipoEntrada == 1)
