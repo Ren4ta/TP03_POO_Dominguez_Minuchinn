@@ -8,7 +8,7 @@ namespace TP3POO_DOMINGUEZ_MINUCHIN
         static void Main(string[] args)
         {
             int opc = ingresarOpcion();
-
+            while(opc != 5) {
             switch (opc)
             {
                 case 1:   
@@ -25,7 +25,9 @@ namespace TP3POO_DOMINGUEZ_MINUCHIN
                 break;
 
                 case 2: 
-                Console.WriteLine(Tiquetera.EstadisticasTicketera()); 
+                foreach( string valor in Tiquetera.EstadisticasTicketera()){
+                    Console.WriteLine(valor); 
+                } 
                 break;
 
                 case 3:
@@ -35,6 +37,8 @@ namespace TP3POO_DOMINGUEZ_MINUCHIN
                 break;
 
 
+            }  
+            opc = ingresarOpcion(); 
             }
             
         } 
