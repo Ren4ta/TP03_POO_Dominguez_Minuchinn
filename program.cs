@@ -24,7 +24,8 @@ namespace TP3POO_DOMINGUEZ_MINUCHIN
 
                 break;
 
-                case 2:
+                case 2: 
+                Console.WriteLine(Tiquetera.EstadisticasTicketera()); 
                 break;
 
                 case 3:
